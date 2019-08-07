@@ -535,6 +535,14 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator
     {
         return isset($this->orderList[$this->i]);
     }
+
+    /**
+     * Reset order list
+     */
+    public function resetOrderList()
+    {
+        $this->orderList = [];
+    }
 }
 
 ?>
