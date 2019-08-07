@@ -110,6 +110,10 @@ class AmazonProduct extends AmazonProductsCore
                             } else {
                                 $this->data['AttributeSets'][$anum][$x->getName()][$y->getName()] = (string)$y;
                             }
+                            // add attributes like: weight and dimension units.
+                            foreach ($y->attributes() as $attribute) {
+                                $this->data['AttributeSets'][$anum][$x->getName()][$y->getName() . '-' . $attribute->getName()] = (string) $attribute;
+                            }
                         }
 
                     } else {
