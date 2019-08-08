@@ -80,6 +80,10 @@ interface Enum
    */
   const PREP_OWNER_AMAZON = 'AMAZON';
   const PREP_OWNER_SELLER = 'SELLER';
+  const PREP_OWNERS       = [
+    self::PREP_OWNER_AMAZON,
+    self::PREP_OWNER_SELLER,
+  ];
 
   /**
    * Amazon Inbound Shipment Status
