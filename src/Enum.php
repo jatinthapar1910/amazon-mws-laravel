@@ -174,4 +174,15 @@ interface Enum
     400,
     500,
   ];
+
+  /**
+   * Amazon Feed Status
+   */
+  const FEED_STATUS_AWAITING      = '_AWAITING_ASYNCHRONOUS_REPLY_'; // The request is being processed, but is waiting for external information before it can complete.
+  const FEED_STATUS_CANCELLED     = '_CANCELLED_'; // The request has been aborted due to a fatal error.
+  const FEED_STATUS_DONE          = '_DONE_'; // The request has been processed.
+  const FEED_STATUS_IN_PROGRESS   = '_IN_PROGRESS_'; // The request is being processed.
+  const FEED_STATUS_IN_SAFETY_NET = '_IN_SAFETY_NET_'; // The request is being processed, but the system has determined that there is a potential error with the feed, An Amazon seller support associate will contact the seller to confirm whether the feed should be processed.
+  const FEED_STATUS_SUBMITTED     = '_SUBMITTED_'; // The request has been received, but has not yet started processing.
+  const FEED_STATUS_UNCONFIRMED   = '_UNCONFIRMED_'; // The request is pending.
 }
