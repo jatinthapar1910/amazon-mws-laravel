@@ -2,9 +2,8 @@
 
 namespace Sonnenglas\AmazonMws;
 
-use Sonnenglas\AmazonMws\Datatypes\PartneredLtlDataInput;
-use Sonnenglas\AmazonMws\Datatypes\PartneredSmallParcelPackageInput;
-use Sonnenglas\AmazonMws\Enum;
+use Sonnenglas\AmazonMws\DataType\PartneredLtlDataInput;
+use Sonnenglas\AmazonMws\DataType\PartneredSmallParcelPackageInput;
 
 class AmazonInboundTransportContent extends AmazonInboundCore
 {

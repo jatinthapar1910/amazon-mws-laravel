@@ -2,8 +2,8 @@
 
 namespace Sonnenglas\AmazonMws;
 
-use Sonnenglas\AmazonMws\Datatypes\Address;
-use Sonnenglas\AmazonMws\Datatypes\InboundShipmentPlanRequestItem;
+use Sonnenglas\AmazonMws\DataType\Address;
+use Sonnenglas\AmazonMws\DataType\InboundShipmentPlanRequestItem;
 
 class AmazonInboundShipmentPlan extends AmazonInboundCore
 {
