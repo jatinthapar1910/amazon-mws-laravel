@@ -1,10 +1,10 @@
 <?php
 
-namespace Sonnenglas\AmazonMws\Datatypes;
+namespace Sonnenglas\AmazonMws\DataType;
 
 use Sonnenglas\AmazonMws\Enum;
 
-class Pallet
+class PartneredSmallParcelPackageInput
 {
   private $options = [];
   /**
@@ -14,7 +14,7 @@ class Pallet
    */
   private $requiredFields = [
     'Dimensions' => false,
-    'IsStacked'  => false,
+    'Weight'     => false,
   ];
 
   /**
@@ -61,28 +61,8 @@ class Pallet
 
     $this->options['Weight.Value'] = $value;
     $this->options['Weight.Unit']  = $unit;
-  }
 
-  /**
-   * Set IsStacked
-   *
-   * @param bool $isStacked
-   */
-  public function setIsStacked( bool $isStacked )
-  {
-    $this->options['IsStacked'] = $isStacked;
-
-    $this->requiredFields['IsStacked'] = true;
-  }
-
-  /**
-   * Set PalletNumber
-   *
-   * @param string $palletNumber
-   */
-  public function setPalletNumber( string $palletNumber )
-  {
-    $this->options['PalletNumber'] = $palletNumber;
+    $this->requiredFields['Weight'] = true;
   }
 
   /**
@@ -94,7 +74,7 @@ class Pallet
   {
     if ( array_sum( $this->requiredFields ) < count( $this->requiredFields ) )
     {
-      throw new \InvalidArgumentException( 'Pallet missing required attributes' );
+      throw new \InvalidArgumentException( 'PartneredSmallParcelPackageInput missing required attributes' );
     }
 
     return $this->options;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Sonnenglas\AmazonMws\Datatypes;
+namespace Sonnenglas\AmazonMws\DataType;
 
-class InboundShipmentItem
+class InboundShipmentPlanRequestItem
 {
   private $options = [];
   /**
@@ -11,8 +11,8 @@ class InboundShipmentItem
    * @var array
    */
   private $requiredFields = [
-    'SellerSKU'       => false,
-    'QuantityShipped' => false,
+    'SellerSKU' => false,
+    'Quantity'  => false,
   ];
 
   public function setSellerSKU( string $sellerSKU )
@@ -22,11 +22,21 @@ class InboundShipmentItem
     $this->requiredFields['SellerSKU'] = true;
   }
 
-  public function setQuantityShipped( int $quantity )
+  public function setASIN( string $asin )
   {
-    $this->options['QuantityShipped'] = $quantity;
+    $this->options['ASIN'] = $asin;
+  }
 
-    $this->requiredFields['QuantityShipped'] = true;
+  public function setCondition( string $condition )
+  {
+    $this->options['Condition'] = $condition;
+  }
+
+  public function setQuantity( int $quantity )
+  {
+    $this->options['Quantity'] = $quantity;
+
+    $this->requiredFields['Quantity'] = true;
   }
 
   public function setQuantityInCase( int $quantityInCase )
@@ -51,11 +61,6 @@ class InboundShipmentItem
         $this->options[ 'PrepDetails.' . ( $index + 1 ) . '.' . $key ] = $value;
       }
     }
-  }
-
-  public function setReleaseDate( int $releaseDate )
-  {
-    $this->options['ReleaseDate'] = $releaseDate;
   }
 
   /**

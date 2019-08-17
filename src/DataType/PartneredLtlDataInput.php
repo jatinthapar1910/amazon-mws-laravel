@@ -1,6 +1,6 @@
 <?php
 
-namespace Sonnenglas\AmazonMws\Datatypes;
+namespace Sonnenglas\AmazonMws\DataType;
 
 class PartneredLtlDataInput
 {
