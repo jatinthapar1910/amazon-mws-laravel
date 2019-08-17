@@ -185,4 +185,20 @@ interface Enum
   const FEED_STATUS_IN_SAFETY_NET = '_IN_SAFETY_NET_'; // The request is being processed, but the system has determined that there is a potential error with the feed, An Amazon seller support associate will contact the seller to confirm whether the feed should be processed.
   const FEED_STATUS_SUBMITTED     = '_SUBMITTED_'; // The request has been received, but has not yet started processing.
   const FEED_STATUS_UNCONFIRMED   = '_UNCONFIRMED_'; // The request is pending.
+
+  /**
+   * Amazon Page Type for Package Labels
+   */
+  const PAGE_TYPE_LETTER_2    = 'PackageLabel_Letter_2'; // Two labels per US Letter label sheet. This is the only valid value for Amazon-partnered shipments in the US that use UPS as the carrier. Supported in Canada and the US.
+  const PAGE_TYPE_LETTER_6    = 'PackageLabel_Letter_6'; // Six labels per US Letter label sheet. This is the only valid value for non-Amazon-partnered shipments in the US. Supported in Canada and the US.
+  const PAGE_TYPE_A4_2        = 'PackageLabel_A4_2'; // Two labels per A4 label sheet. Supported in France, Germany, Italy, Spain, and the UK.
+  const PAGE_TYPE_A4_4        = 'PackageLabel_A4_4'; // Four labels per A4 label sheet. Supported in France, Germany, Italy, Spain, and the UK.
+  const PAGE_TYPE_PLAIN_PAPER = 'PackageLabel_Plain_Paper'; // One label per sheet of US Letter paper. Only for non-Amazon-partnered shipments. Supported in all marketplaces.
+  const PAGE_TYPES            = [
+    self::PAGE_TYPE_LETTER_2,
+    self::PAGE_TYPE_LETTER_6,
+    self::PAGE_TYPE_A4_2,
+    self::PAGE_TYPE_A4_4,
+    self::PAGE_TYPE_PLAIN_PAPER,
+  ];
 }

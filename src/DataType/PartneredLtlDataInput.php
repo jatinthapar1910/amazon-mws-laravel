@@ -35,7 +35,7 @@ class PartneredLtlDataInput
 
   public function setSellerFreightClass( string $sellerFreightClass )
   {
-    $this->options['SellerFreightClass'] = $SellerFreightClass;
+    $this->options['SellerFreightClass'] = $sellerFreightClass;
   }
 
   public function setFreightReadyDate( string $freightReadyDate )
