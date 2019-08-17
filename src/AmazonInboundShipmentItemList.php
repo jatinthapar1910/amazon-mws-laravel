@@ -5,7 +5,7 @@ namespace Sonnenglas\AmazonMws;
 use Exception;
 use InvalidArgumentException;
 
-class AmazonInboundShipmentList extends AmazonInboundCore
+class AmazonInboundShipmentItemList extends AmazonInboundCore
 {
   private $response;
   private $setRequired = false;
@@ -15,43 +15,17 @@ class AmazonInboundShipmentList extends AmazonInboundCore
     parent::__construct( $s, $mock, $m );
     include( $this->env );
 
-    $this->options['Action'] = 'ListInboundShipments';
+    $this->options['Action'] = 'ListInboundShipmentItems';
   }
 
   /**
-   * @param string|array $shipmentStatusList
+   * Set Shipment Id
+   *
+   * @param string $shipmentId
    */
-  public function setShipmentStatusList( $shipmentStatusList )
+  public function setShipmentId( string $shipmentId )
   {
-    if ( ! is_array( $shipmentStatusList ) )
-    {
-      $shipmentStatusList = [ $shipmentStatusList ];
-    }
-
-    foreach ( $shipmentStatusList as $index => $shipmentStatus )
-    {
-      $this->options[ 'ShipmentStatusList.member.' . ( $index + 1 ) ] = $shipmentStatus;
-
-      $this->setRequired = true;
-    }
-  }
-
-  /**
-   * @param string|array $shipmentIdList
-   */
-  public function setShipmentIdList( $shipmentIdList )
-  {
-    if ( ! is_array( $shipmentIdList ) )
-    {
-      $shipmentIdList = [ $shipmentIdList ];
-    }
-
-    foreach ( $shipmentIdList as $index => $shipmentId )
-    {
-      $this->options[ 'ShipmentIdList.member.' . ( $index + 1 ) ] = $shipmentId;
-
-      $this->setRequired = true;
-    }
+    $this->options['ShipmentId'] = $shipmentId;
   }
 
   /**
@@ -82,15 +56,11 @@ class AmazonInboundShipmentList extends AmazonInboundCore
    */
   public function fetchShipments()
   {
-    if ( ! array_key_exists( 'LastUpdatedAfter', $this->options ) &&
+    if ( empty( $this->options['ShipmentId'] ) &&
+         ! array_key_exists( 'LastUpdatedAfter', $this->options ) &&
          ! array_key_exists( 'LastUpdatedBefore', $this->options ) )
     {
-      throw new InvalidArgumentException( 'Must specified LastUpdated' );
-    }
-
-    if ( ! $this->setRequired )
-    {
-      throw new InvalidArgumentException( 'Must specified ShipmentStatusList or ShipmentIdList' );
+      throw new InvalidArgumentException( 'Must specified ShipmentId or LastUpdated' );
     }
 
     $url = $this->urlbase . $this->urlbranch;
