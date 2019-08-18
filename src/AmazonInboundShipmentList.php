@@ -58,20 +58,14 @@ class AmazonInboundShipmentList extends AmazonInboundCore
    * @param null $after
    * @param null $before
    *
-   * @return bool
+   * @return void
    * @throws Exception
    */
   public function setLastUpdated( $after = null, $before = null )
   {
-    if ( $before )
-    {
-      $this->options['LastUpdatedBefore'] = $this->genTime( $before );
-    }
+    $this->options['LastUpdatedBefore'] = $this->genTime( $before ?: false );
 
-    if ( $after )
-    {
-      $this->options['LastUpdatedAfter'] = $this->genTime( $after );
-    }
+    $this->options['LastUpdatedAfter'] = $this->genTime( $after ?: false );
   }
 
   /**
@@ -82,12 +76,6 @@ class AmazonInboundShipmentList extends AmazonInboundCore
    */
   public function fetchShipments()
   {
-    if ( ! array_key_exists( 'LastUpdatedAfter', $this->options ) &&
-         ! array_key_exists( 'LastUpdatedBefore', $this->options ) )
-    {
-      throw new InvalidArgumentException( 'Must specified LastUpdated' );
-    }
-
     if ( ! $this->setRequired )
     {
       throw new InvalidArgumentException( 'Must specified ShipmentStatusList or ShipmentIdList' );

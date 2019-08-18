@@ -31,20 +31,14 @@ class AmazonInboundShipmentItemList extends AmazonInboundCore
    * @param null $after
    * @param null $before
    *
-   * @return bool
+   * @return void
    * @throws Exception
    */
   public function setLastUpdated( $after = null, $before = null )
   {
-    if ( $before )
-    {
-      $this->options['LastUpdatedBefore'] = $this->genTime( $before );
-    }
+    $this->options['LastUpdatedBefore'] = $this->genTime( $before ?: false );
 
-    if ( $after )
-    {
-      $this->options['LastUpdatedAfter'] = $this->genTime( $after );
-    }
+    $this->options['LastUpdatedAfter'] = $this->genTime( $after ?: false );
   }
 
   /**
