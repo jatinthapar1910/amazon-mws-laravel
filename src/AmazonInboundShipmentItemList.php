@@ -8,7 +8,6 @@ use InvalidArgumentException;
 class AmazonInboundShipmentItemList extends AmazonInboundCore
 {
   private $response;
-  private $setRequired = false;
 
   public function __construct( $s, $mock = false, $m = null )
   {
@@ -54,7 +53,7 @@ class AmazonInboundShipmentItemList extends AmazonInboundCore
    * @return bool
    * @throws Exception
    */
-  public function fetchShipments()
+  public function fetchItems()
   {
     if ( empty( $this->options['ShipmentId'] ) &&
          ! array_key_exists( 'LastUpdatedAfter', $this->options ) &&
