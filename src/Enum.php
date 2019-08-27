@@ -74,7 +74,11 @@ interface Enum
   const LABEL_PREP_PREFERENCE_SELLER           = 'SELLER_LABEL'; // Seller labels the items in the inbound shipment when labels are required.
   const LABEL_PREP_PREFERENCE_AMAZON_ONLY      = 'AMAZON_LABEL_ONLY'; // item is not included. Amazon attempts to label the items in the inbound shipment when labels are required.
   const LABEL_PREP_PREFERENCE_AMAZON_PREFERRED = 'AMAZON_LABEL_PREFERRED'; // item is included. Amazon attempts to label the items in the inbound shipment when labels are required.
-
+  const LABEL_PREP_PREFERENCES                 = [
+    self::LABEL_PREP_PREFERENCE_SELLER,
+    self::LABEL_PREP_PREFERENCE_AMAZON_ONLY,
+    self::LABEL_PREP_PREFERENCE_AMAZON_PREFERRED,
+  ];
   /**
    * Amazon PrepOwner
    */
