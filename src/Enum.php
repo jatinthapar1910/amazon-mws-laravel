@@ -79,6 +79,25 @@ interface Enum
     self::LABEL_PREP_PREFERENCE_AMAZON_ONLY,
     self::LABEL_PREP_PREFERENCE_AMAZON_PREFERRED,
   ];
+
+  /**
+   * Amazon Prep Instructions
+   */
+  const PREP_INSTRUCTION_POLYBAGGING           = 'Polybagging';
+  const PREP_INSTRUCTION_BUBBLE_WRAPPING       = 'BubbleWrapping ';
+  const PREP_INSTRUCTION_TAPING                = 'Taping';
+  const PREP_INSTRUCTION_BLACK_SHRINK_WRAPPING = 'BlackShrinkWrapping';
+  const PREP_INSTRUCTION_LABELING              = 'Labeling';
+  const PREP_INSTRUCTION_HANG_GARMENT          = 'HangGarment';
+  const PREP_INSTRUCTIONS                      = [
+    self::PREP_INSTRUCTION_POLYBAGGING,
+    self::PREP_INSTRUCTION_BUBBLE_WRAPPING,
+    self::PREP_INSTRUCTION_TAPING,
+    self::PREP_INSTRUCTION_BLACK_SHRINK_WRAPPING,
+    self::PREP_INSTRUCTION_LABELING,
+    self::PREP_INSTRUCTION_HANG_GARMENT,
+  ];
+
   /**
    * Amazon PrepOwner
    */
