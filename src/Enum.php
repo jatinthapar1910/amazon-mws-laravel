@@ -236,4 +236,18 @@ interface Enum
     self::PAGE_TYPE_A4_4,
     self::PAGE_TYPE_PLAIN_PAPER,
   ];
+
+  /**
+   * Amazon inbound shipment Transport Status
+   */
+  const TRANSPORT_STATUS_WORKING             = 'WORKING'; // You have successfully called the PutTransportContent operation for this shipment but have not yet called the  EstimateTransportRequest operation.
+  const TRANSPORT_STATUS_ERROR_ON_ESTIMATING = 'ERROR_ON_ESTIMATING'; // There was a problem with your call to the EstimateTransportRequest operation and an error was returned.
+  const TRANSPORT_STATUS_ESTIMATING          = 'ESTIMATING'; // You have successfully called the  EstimateTransportRequest operation for this shipment and the carrier is in the process of estimating the shipment cost.
+  const TRANSPORT_STATUS_ESTIMATED           = 'ESTIMATED'; // The carrier has completed the process of estimating the shipment cost. Your transportation request is ready to be confirmed by you.
+  const TRANSPORT_STATUS_ERROR_ON_CONFIRMING = 'ERROR_ON_CONFIRMING'; // There was a problem with your call to the ConfirmTransportRequest operation and an error was returned.
+  const TRANSPORT_STATUS_CONFIRMING          = 'CONFIRMING'; // You have successfully called the ConfirmTransportRequest operation but the confirmation process is not yet complete.
+  const TRANSPORT_STATUS_CONFIRMED           = 'CONFIRMED'; // Your transportation request has been confirmed.
+  const TRANSPORT_STATUS_VOIDING             = 'VOIDING'; // You have successfully called the VoidTransportRequest operation for a confirmed carrier shipment but the voiding process is not yet complete.
+  const TRANSPORT_STATUS_VOIDED              = 'VOIDED'; // Your confirmed carrier shipment has been voided. Your account will not be charged for the shipping cost.
+  const TRANSPORT_STATUS_ERROR_IN_VOIDING    = 'ERROR_IN_VOIDING'; // There was a problem with your call to the VoidTransportRequest operation and an error was returned.
 }
