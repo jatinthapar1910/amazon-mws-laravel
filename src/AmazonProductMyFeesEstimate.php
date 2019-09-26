@@ -11,13 +11,20 @@ class AmazonProductMyFeesEstimate extends AmazonCore
   {
     parent::__construct( $s, $mock, $m );
 
-    $this->options['Action'] = 'GetMyFeesEstimate';
+    $productVersion = '2011-10-01';
+
+    $this->urlbranch = 'Products/' . $productVersion;
+
+    $this->options['Action']  = 'GetMyFeesEstimate';
+    $this->options['Version'] = $productVersion;
   }
 
   public function setProducts( array $feesEstimateRequest )
   {
     foreach ( $feesEstimateRequest as $index => $product )
     {
+      $productIndex = $index + 1;
+
       if ( ! $product instanceof FeesEstimateRequest )
       {
         throw new InvalidArgumentException( 'The product list must-have items of FeesEstimateRequest datatype.s' );
@@ -25,12 +32,12 @@ class AmazonProductMyFeesEstimate extends AmazonCore
 
       foreach ( $product->toArray() as $key => $value )
       {
-        $this->options[ 'FeesEstimateRequestList.FeesEstimateRequest.' . $index . '.' . $key ] = $value;
+        $this->options[ 'FeesEstimateRequestList.FeesEstimateRequest.' . $productIndex . '.' . $key ] = $value;
       }
 
-      if ( empty( $this->options[ 'FeesEstimateRequestList.FeesEstimateRequest.' . $index . '.MarketplaceId' ] ) )
+      if ( empty( $this->options[ 'FeesEstimateRequestList.FeesEstimateRequest.' . $productIndex . '.MarketplaceId' ] ) )
       {
-        $this->options[ 'FeesEstimateRequestList.FeesEstimateRequest.' . $index . '.MarketplaceId' ] = $this->getMarketplaceId();
+        $this->options[ 'FeesEstimateRequestList.FeesEstimateRequest.' . $productIndex . '.MarketplaceId' ] = $this->getMarketplaceId();
       }
     }
   }
