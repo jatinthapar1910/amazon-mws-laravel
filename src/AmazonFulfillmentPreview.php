@@ -189,13 +189,13 @@ class AmazonFulfillmentPreview extends AmazonOutboundCore
     {
         if (is_string($s)) {
             $this->resetShippingSpeeds();
-            $this->options['ShippingSpeedCategories.1'] = $s;
+            $this->options['ShippingSpeedCategories.member.1'] = $s;
         } else {
             if (is_array($s)) {
                 $this->resetShippingSpeeds();
                 $i = 1;
                 foreach ($s as $x) {
-                    $this->options['ShippingSpeedCategories.' . $i] = $x;
+                    $this->options['ShippingSpeedCategories.member.' . $i] = $x;
                     $i++;
                 }
             } else {
