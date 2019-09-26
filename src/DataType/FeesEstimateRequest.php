@@ -13,7 +13,6 @@ class FeesEstimateRequest
    * @var array
    */
   private $requiredFields = [
-    'MarketplaceId'     => false,
     'IdType'            => false,
     'IdValue'           => false,
     'ListingPrice'      => false,
@@ -24,8 +23,6 @@ class FeesEstimateRequest
   public function setMarketplaceId( string $marketplaceId )
   {
     $this->options['MarketplaceId'] = $marketplaceId;
-
-    $this->requiredFields['MarketplaceId'] = true;
   }
 
   public function setIdType( string $idType )

@@ -894,6 +894,11 @@ abstract class AmazonCore
         );
     }
 
+    public function getMarketplaceId()
+    {
+      return $this->marketplaceId;
+    }
+
     // -- End Functions from Amazon --
 
 }

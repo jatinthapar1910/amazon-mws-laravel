@@ -27,6 +27,11 @@ class AmazonProductMyFeesEstimate extends AmazonCore
       {
         $this->options[ 'FeesEstimateRequestList.FeesEstimateRequest.' . $index . '.' . $key ] = $value;
       }
+
+      if ( empty( $this->options[ 'FeesEstimateRequestList.FeesEstimateRequest.' . $index . '.MarketplaceId' ] ) )
+      {
+        $this->options[ 'FeesEstimateRequestList.FeesEstimateRequest.' . $index . '.MarketplaceId' ] = $this->getMarketplaceId();
+      }
     }
   }
 
