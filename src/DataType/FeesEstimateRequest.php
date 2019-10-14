@@ -67,7 +67,7 @@ class FeesEstimateRequest
 
   public function setIsAmazonFulfilled( bool $isAmazonFulfilled )
   {
-    $this->options['IsAmazonFulfilled'] = $isAmazonFulfilled;
+    $this->options['IsAmazonFulfilled'] = $isAmazonFulfilled ? 'true' : 'false';
 
     $this->requiredFields['IsAmazonFulfilled'] = true;
   }
