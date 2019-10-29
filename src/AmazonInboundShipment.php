@@ -62,7 +62,7 @@ class AmazonInboundShipment extends AmazonInboundCore
 
   public function setAreCasesRequired( bool $areCasesRequired )
   {
-    $this->options['InboundShipmentHeader.AreCasesRequired'] = $areCasesRequired;
+    $this->options['InboundShipmentHeader.AreCasesRequired'] = $areCasesRequired ? 'true' : 'false';
   }
 
   public function setShipmentStatus( string $shipmentStatus )
