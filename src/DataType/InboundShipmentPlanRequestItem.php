@@ -58,7 +58,7 @@ class InboundShipmentPlanRequestItem
 
       foreach ( $prepDetails->toArray() as $key => $value )
       {
-        $this->options[ 'PrepDetails.' . ( $index + 1 ) . '.' . $key ] = $value;
+        $this->options[ 'PrepDetailsList.PrepDetails.' . ( $index + 1 ) . '.' . $key ] = $value;
       }
     }
   }

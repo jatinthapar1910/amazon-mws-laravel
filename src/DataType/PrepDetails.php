@@ -6,15 +6,14 @@ use Sonnenglas\AmazonMws\Enum;
 
 class PrepDetails
 {
-  private $options = [];
+  private $options = [ 'PrepInstruction' => 'NONE' ];
   /**
    * Required attributes, the default is not set yet.
    *
    * @var array
    */
   private $requiredFields = [
-    'PrepInstruction' => false,
-    'PrepOwner'       => false,
+    'PrepOwner' => false,
   ];
 
   /**
@@ -25,8 +24,6 @@ class PrepDetails
   public function setPrepInstruction( string $instruction )
   {
     $this->options['PrepInstruction'] = $instruction;
-
-    $this->requiredFields['PrepInstruction'] = true;
   }
 
   /**
