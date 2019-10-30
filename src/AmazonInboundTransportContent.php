@@ -45,7 +45,7 @@ class AmazonInboundTransportContent extends AmazonInboundCore
   public function setTransportDetailsPartneredSP( string $carrierName, array $packageList )
   {
     $this->options['TransportDetails.PartneredSmallParcelData.CarrierName'] = $carrierName;
-    foreach ( $packageList as $index => $package )
+    foreach ( $packageList as $boxNum => $package )
     {
       if ( ! $package instanceof PartneredSmallParcelPackageInput )
       {
@@ -54,7 +54,7 @@ class AmazonInboundTransportContent extends AmazonInboundCore
 
       foreach ( $package->toArray() as $key => $value )
       {
-        $this->options[ 'TransportDetails.PartneredSmallParcelData.PackageList.member.' . ( $index + 1 ) . '.' . $key ] = $value;
+        $this->options[ 'TransportDetails.PartneredSmallParcelData.PackageList.member.' . $boxNum . '.' . $key ] = $value;
       }
     }
 
@@ -70,9 +70,9 @@ class AmazonInboundTransportContent extends AmazonInboundCore
   public function setTransportDetailsNonPartneredSP( string $carrierName, array $packageList )
   {
     $this->options['TransportDetails.NonPartneredSmallParcelData.CarrierName'] = $carrierName;
-    foreach ( array_values( $packageList ) as $index => $trackingId )
+    foreach ( $packageList as $boxNum => $trackingId )
     {
-      $this->options[ 'TransportDetails.NonPartneredSmallParcelData.PackageList.member.' . ( $index + 1 ) . '.TrackingId' ] = $trackingId;
+      $this->options[ 'TransportDetails.NonPartneredSmallParcelData.PackageList.member.' . $boxNum . '.TrackingId' ] = $trackingId;
     }
 
     $this->transportDetailsSet = true;

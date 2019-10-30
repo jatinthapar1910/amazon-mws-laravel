@@ -16,7 +16,7 @@ class PartneredLtlDataInput
     'FreightReadyDate' => false,
   ];
 
-  public function setContact( string $name, string $phone, string $email, string $fax )
+  public function setContact( string $name, string $phone, string $email, string $fax = 'N/A' )
   {
     $this->options['Contact.Name']  = $name;
     $this->options['Contact.Phone'] = $phone;
@@ -57,18 +57,18 @@ class PartneredLtlDataInput
     $this->options['SellerDeclaredValue.CurrencyCode'] = $currencyCode;
   }
 
-  public function setPalletList( array $palets )
+  public function setPalletList( array $pallets )
   {
-    foreach ( $palets as $index => $palet )
+    foreach ( $pallets as $palletNum => $pallet )
     {
-      if ( ! $palets instanceof Pallet )
+      if ( ! $pallets instanceof Pallet )
       {
         throw new \InvalidArgumentException( 'The pallet list must-have items of Pallet data type.' );
       }
 
-      foreach ( $palet->toArray() as $key => $value )
+      foreach ( $pallet->toArray() as $key => $value )
       {
-        $this->options[ 'PalletList.member.' . ( $index + 1 ) . '.' . $key ] = $value;
+        $this->options[ 'PalletList.member.' . $palletNum . '.' . $key ] = $value;
       }
     }
   }

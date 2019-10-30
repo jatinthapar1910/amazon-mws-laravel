@@ -20,12 +20,10 @@ class Pallet
   /**
    * Set Dimensions
    *
-   * @param float $length
-   * @param float $width
    * @param float $height
    * @param string $unit
    */
-  public function setDimensions( float $length, float $width, float $height, string $unit )
+  public function setDimensions( float $height, string $unit )
   {
     /**
      * Check unit value is valid.
@@ -35,8 +33,13 @@ class Pallet
       throw new \InvalidArgumentException( 'Invalid dimension unit. possible: ' . implode( ',', Enum::DIMENSIONS_UNITS ) );
     }
 
-    $this->options['Dimensions.Length'] = $length;
-    $this->options['Dimensions.Width']  = $width;
+    if ( ( $unit == Enum::DIMENSIONS_UNIT_INCH and $height > 60 ) or ( $unit == Enum::DIMENSIONS_UNIT_CM and $height > 152.4 ) )
+    {
+      throw new \InvalidArgumentException( 'The height must be less than or equal to 60 inches.' );
+    }
+
+    $this->options['Dimensions.Length'] = 40;
+    $this->options['Dimensions.Width']  = 48;
     $this->options['Dimensions.Height'] = $height;
     $this->options['Dimensions.Unit']   = $unit;
 
