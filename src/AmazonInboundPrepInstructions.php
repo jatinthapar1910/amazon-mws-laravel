@@ -160,7 +160,7 @@ class AmazonInboundPrepInstructions extends AmazonInboundCore
   {
     if ( isset( $this->response ) )
     {
-      return empty( 'ASINList.Id.1' ) ? $this->response['SKUPrepInstructionsList'] : $this->response['ASINPrepInstructionsList'];
+      return empty( $this->options['ASINList.Id.1'] ) ? $this->response['SKUPrepInstructionsList'] : $this->response['ASINPrepInstructionsList'];
     }
 
     return false;
@@ -175,7 +175,7 @@ class AmazonInboundPrepInstructions extends AmazonInboundCore
   {
     if ( isset( $this->response ) )
     {
-      return empty( 'ASINList.Id.1' ) ? $this->response['InvalidSKUList'] : $this->response['InvalidASINList'];
+      return empty( $this->options['ASINList.Id.1'] ) ? $this->response['InvalidSKUList'] : $this->response['InvalidASINList'];
     }
 
     return false;
