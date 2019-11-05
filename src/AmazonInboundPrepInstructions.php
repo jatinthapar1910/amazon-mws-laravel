@@ -61,81 +61,53 @@ class AmazonInboundPrepInstructions extends AmazonInboundCore
   /**
    * Set SellerSKUList
    *
-   * @param array|string $sellerSKUList
+   * @param array|string $idList
+   * @param string $idType SellerSKU or ASIN
    */
-  public function setSellerSKUList( $sellerSKUList )
+  public function setIdList( $idList, string $idType )
   {
-    if ( ! is_array( $sellerSKUList ) )
+    if ( ! is_array( $idList ) )
     {
-      $sellerSKUList = [ $sellerSKUList ];
+      $idList = [ $idList ];
     }
 
-    foreach ( array_values( $sellerSKUList ) as $index => $sku )
-    {
-      $this->options[ 'SellerSKUList.Id.' . ( $index + 1 ) ] = $sku;
-    }
-  }
+    $optionName = $idType == 'ASIN' ? 'ASINList.Id.' : 'SellerSKUList.Id.';
 
-  /**
-   * Set ASINList
-   *
-   * @param array|string $asinList
-   */
-  public function setASINList( $asinList )
-  {
-    if ( ! is_array( $asinList ) )
+    foreach ( array_values( $idList ) as $index => $id )
     {
-      $asinList = [ $asinList ];
-    }
-
-    foreach ( array_values( $asinList ) as $index => $asin )
-    {
-      $this->options[ 'ASINList.Id.' . ( $index + 1 ) ] = $asin;
+      $this->options[ $optionName . ( $index + 1 ) ] = $id;
     }
   }
 
   /**
    * send GetPrepInstructionsForSKU request to amazon
    *
-   * @return bool
-   * @throws Exception
-   */
-  public function getForSKU()
-  {
-    /**
-     * Check required options
-     */
-    if ( empty( $this->options['SellerSKUList.Id.1'] ) )
-    {
-      throw new InvalidArgumentException( 'The SellerSKUList attribute is required' );
-    }
-
-    $this->resetASINList();
-
-    $this->options['Action'] = 'GetPrepInstructionsForSKU';
-
-    return $this->send();
-  }
-
-  /**
-   * send GetPrepInstructionsForSKU request to amazon
+   * @param string $idType SellerSKU or ASIN
    *
    * @return bool
    * @throws Exception
    */
-  public function getForASIN()
+  public function fetch( string $idType )
   {
-    /**
-     * Check required options
-     */
-    if ( empty( $this->options['ASINList.Id.1'] ) )
+    if ( $idType == 'ASIN' )
     {
-      throw new InvalidArgumentException( 'The ASINList attribute is required' );
+      if ( empty( $this->options['ASINList.Id.1'] ) )
+      {
+        throw new InvalidArgumentException( 'The ASINList attribute is required' );
+      }
+
+      $this->resetSellerSKUList();
+      $this->options['Action'] = 'GetPrepInstructionsForASIN';
+    } else
+    {
+      if ( empty( $this->options['SellerSKUList.Id.1'] ) )
+      {
+        throw new InvalidArgumentException( 'The SellerSKUList attribute is required' );
+      }
+
+      $this->resetASINList();
+      $this->options['Action'] = 'GetPrepInstructionsForSKU';
     }
-
-    $this->resetSellerSKUList();
-
-    $this->options['Action'] = 'GetPrepInstructionsForASIN';
 
     return $this->send();
   }
