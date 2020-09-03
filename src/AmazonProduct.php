@@ -334,8 +334,8 @@ class AmazonProduct extends AmazonProductsCore
 
     public function setId( $id, $idType )
     {
-        $this->data['id'] = $id;
-        $this->data['idType'] = $idType;
+        $this->data['Id'] = $id;
+        $this->data['IdType'] = $idType;
 
         return $this;
     }
