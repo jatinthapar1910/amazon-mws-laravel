@@ -332,6 +332,14 @@ class AmazonProduct extends AmazonProductsCore
         }
     }
 
+    public function setId( $id, $idType )
+    {
+        $this->data['id'] = $id;
+        $this->data['idType'] = $idType;
+
+        return $this;
+    }
+
 }
 
 ?>
