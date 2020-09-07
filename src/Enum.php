@@ -170,4 +170,24 @@ interface Enum
     400,
     500,
   ];
+
+  /**
+   * Amazon Product Id Types
+   */
+  const PRODUCT_ID_TYPE_ASIN       = 'ASIN';
+  const PRODUCT_ID_TYPE_GCID       = 'GCID';
+  const PRODUCT_ID_TYPE_SELLER_SKU = 'SellerSKU';
+  const PRODUCT_ID_TYPE_UPC        = 'UPC';
+  const PRODUCT_ID_TYPE_EAN        = 'EAN';
+  const PRODUCT_ID_TYPE_ISBN       = 'ISBN';
+  const PRODUCT_ID_TYPE_JAN        = 'JAN';
+  const PRODUCT_ID_TYPES           = [
+    self::PRODUCT_ID_TYPE_ASIN,
+    self::PRODUCT_ID_TYPE_GCID,
+    self::PRODUCT_ID_TYPE_SELLER_SKU,
+    self::PRODUCT_ID_TYPE_UPC,
+    self::PRODUCT_ID_TYPE_EAN,
+    self::PRODUCT_ID_TYPE_ISBN,
+    self::PRODUCT_ID_TYPE_JAN,
+  ];
 }
