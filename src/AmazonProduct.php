@@ -206,10 +206,12 @@ class AmazonProduct extends AmazonProductsCore
 
         //SalesRankings
         if ($xml->SalesRankings) {
+            $i = 0;
             foreach ($xml->SalesRankings->children() as $x) {
                 foreach ($x->children() as $y) {
-                    $this->data['SalesRankings'][$x->getName()][$y->getName()] = (string)$y;
+                    $this->data['SalesRankings'][$i][$y->getName()] = (string)$y;
                 }
+                $i++;
             }
         }
 

@@ -102,8 +102,11 @@ abstract class AmazonProductsCore extends AmazonCore
                     foreach ($x->children() as $z) {
                         if ($z->getName() == 'Error') {
                             $error = (string)$z->Message;
-                            $this->productList['Error'] = $error;
+                            $this->productList[$this->index]['Error'] = $error;
+                            $this->productList[$this->index]['Id'] = $temp['@attributes']['Id'] ?? null;
+                            $this->productList[$this->index]['IdType'] = $temp['@attributes']['IdType'] ?? null;
                             $this->log("Product Error: $error", 'Warning');
+                            $this->index++;
                         } elseif ($z->getName() != 'Product') {
                             $this->productList[$z->getName()] = (string)$z;
                             $this->log("Special case: " . $z->getName(), 'Warning');
