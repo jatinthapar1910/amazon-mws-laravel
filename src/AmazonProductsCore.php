@@ -111,8 +111,12 @@ abstract class AmazonProductsCore extends AmazonCore
                             $this->productList[$z->getName()] = (string)$z;
                             $this->log("Special case: " . $z->getName(), 'Warning');
                         } else {
-                            $this->productList[$this->index] = new AmazonProduct($this->storeName, $z, $this->mockMode,
-                                $this->mockFiles);
+                            // action ends with ASIN
+                            $actionForAsin = substr($this->options['Action'], -strlen('ASIN')) === 'ASIN';
+                            $idType = $actionForAsin ? 'ASIN' : 'SellerSKU';
+
+                            $this->productList[$this->index] = (new AmazonProduct($this->storeName, $z, $this->mockMode,
+                                $this->mockFiles))->setId($temp['@attributes'][$idType] ?? null, $idType );
                             $this->index++;
                         }
                     }
