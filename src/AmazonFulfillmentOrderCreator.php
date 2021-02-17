@@ -60,7 +60,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      */
     public function setFulfillmentOrderId($s)
     {
-        if (is_string($s)) {
+        if (isset($s)) {
             $this->options['SellerFulfillmentOrderId'] = $s;
             return true;
         } else {
@@ -79,7 +79,7 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      */
     public function setDisplayableOrderId($s)
     {
-        if (is_string($s)) {
+        if (isset($s)) {
             $this->options['DisplayableOrderId'] = $s;
             return true;
         } else {
@@ -450,37 +450,51 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
      * so there is no data to retrieve afterwards. The following parameters are required:
      * fulfillment order ID, displayed order ID, displayed timestamp, comment,
      * shipping speed, address, items.
-     * @return boolean <b>TRUE</b> if the order creation was successful, <b>FALSE</b> if something goes wrong
+     * @return AmazonResponse
      */
     public function createOrder()
     {
         if (!array_key_exists('SellerFulfillmentOrderId', $this->options)) {
             $this->log("Seller Fulfillment OrderID must be set in order to create an order", 'Warning');
-            return false;
+            $r = new AmazonResponse();
+            $r->setError('Seller Fulfillment OrderID must be set in order to create an order');
+            return $r;
         }
         if (!array_key_exists('DisplayableOrderId', $this->options)) {
             $this->log("Displayable Order ID must be set in order to create an order", 'Warning');
-            return false;
+            $r = new AmazonResponse();
+            $r->setError('Displayable Order ID must be set in order to create an order');
+            return $r;
         }
         if (!array_key_exists('DisplayableOrderDateTime', $this->options)) {
             $this->log("Date must be set in order to create an order", 'Warning');
-            return false;
+            $r = new AmazonResponse();
+            $r->setError('Date must be set in order to create an order');
+            return $r;
         }
         if (!array_key_exists('DisplayableOrderComment', $this->options)) {
             $this->log("Comment must be set in order to create an order", 'Warning');
-            return false;
+            $r = new AmazonResponse();
+            $r->setError('Comment must be set in order to create an order');
+            return $r;
         }
         if (!array_key_exists('ShippingSpeedCategory', $this->options)) {
             $this->log("Shipping Speed must be set in order to create an order", 'Warning');
-            return false;
+            $r = new AmazonResponse();
+            $r->setError('Shipping Speed must be set in order to create an order');
+            return $r;
         }
         if (!array_key_exists('DestinationAddress.Name', $this->options)) {
             $this->log("Address must be set in order to create an order", 'Warning');
-            return false;
+            $r = new AmazonResponse();
+            $r->setError('Address must be set in order to create an order');
+            return $r;
         }
         if (!array_key_exists('Items.member.1.SellerSKU', $this->options)) {
             $this->log("Items must be set in order to create an order", 'Warning');
-            return false;
+            $r = new AmazonResponse();
+            $r->setError('Items must be set in order to create an order');
+            return $r;
         }
 
         $url = $this->urlbase . $this->urlbranch;
@@ -492,12 +506,11 @@ class AmazonFulfillmentOrderCreator extends AmazonOutboundCore
         } else {
             $response = $this->sendRequest($url, array('Post' => $query));
         }
-        if (!$this->checkResponse($response)) {
-            return false;
-        } else {
+        if ($this->checkResponse($response)) {
             $this->log("Successfully created Fulfillment Order " . $this->options['SellerFulfillmentOrderId'] . " / " . $this->options['DisplayableOrderId']);
-            return true;
         }
+
+        return new AmazonResponse($response);
     }
 
 }

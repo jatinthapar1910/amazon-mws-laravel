@@ -258,13 +258,14 @@ class AmazonFulfillmentOrder extends AmazonOutboundCore
      * Submits a <i>CancelFulfillmentOrder</i> request to Amazon. In order to do this,
      * a fulfillment order ID is required. Amazon will send back an HTTP response,
      * so there is no data to retrieve afterwards.
-     * @return boolean <b>TRUE</b> if the cancellation was successful, <b>FALSE</b> if something goes wrong
+     * @return AmazonResponse
      */
     public function cancelOrder()
     {
         if (!array_key_exists('SellerFulfillmentOrderId', $this->options)) {
             $this->log("Fulfillment Order ID must be set in order to cancel it!", 'Warning');
-            return false;
+            $r = new AmazonResponse();
+            $r->setError('Fulfillment Order ID must be set in order to cancel it!');
         }
 
         $this->options['Action'] = 'CancelFulfillmentOrder';
@@ -278,12 +279,11 @@ class AmazonFulfillmentOrder extends AmazonOutboundCore
         } else {
             $response = $this->sendRequest($url, array('Post' => $query));
         }
-        if (!$this->checkResponse($response)) {
-            return false;
-        } else {
+        if ($this->checkResponse($response)) {
             $this->log("Successfully deleted Fulfillment Order " . $this->options['SellerFulfillmentOrderId']);
-            return true;
         }
+
+        return new AmazonResponse($response);
     }
 
     /**

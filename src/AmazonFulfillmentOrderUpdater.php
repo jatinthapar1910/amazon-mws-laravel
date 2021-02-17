@@ -58,7 +58,7 @@ class AmazonFulfillmentOrderUpdater extends AmazonOutboundCore
    */
   public function setFulfillmentOrderId($s)
   {
-    if (is_string($s)) {
+    if (isset($s)) {
       $this->options['SellerFulfillmentOrderId'] = $s;
       return true;
     } else {
@@ -76,7 +76,7 @@ class AmazonFulfillmentOrderUpdater extends AmazonOutboundCore
    */
   public function setDisplayableOrderId($s)
   {
-    if (is_string($s)) {
+    if (isset($s)) {
       $this->options['DisplayableOrderId'] = $s;
       return true;
     } else {
@@ -384,7 +384,7 @@ class AmazonFulfillmentOrderUpdater extends AmazonOutboundCore
     $i = 1;
     foreach ($a as $x) {
       if (is_array($x) && array_key_exists('SellerSKU', $x) && array_key_exists('SellerFulfillmentOrderItemId',
-                                                                                $x) && array_key_exists('Quantity', $x)
+              $x) && array_key_exists('Quantity', $x)
       ) {
         $this->options['Items.member.' . $i . '.SellerSKU'] = $x['SellerSKU'];
         $this->options['Items.member.' . $i . '.SellerFulfillmentOrderItemId'] = $x['SellerFulfillmentOrderItemId'];
@@ -436,13 +436,15 @@ class AmazonFulfillmentOrderUpdater extends AmazonOutboundCore
    * so there is no data to retrieve afterwards. The following parameters are required:
    * fulfillment order ID, displayed order ID, displayed timestamp, comment,
    * shipping speed, address, items.
-   * @return boolean <b>TRUE</b> if the order updating was successful, <b>FALSE</b> if something goes wrong
+   * @return AmazonResponse | false
    */
   public function updateOrder()
   {
     if (!array_key_exists('SellerFulfillmentOrderId', $this->options)) {
       $this->log("Seller Fulfillment OrderID must be set in order to update an order", 'Warning');
-      return false;
+      $r = new AmazonResponse();
+      $r->setError('Seller Fulfillment OrderID must be set in order to update an order');
+      return $r;
     }
 
     $url = $this->urlbase . $this->urlbranch;
@@ -454,12 +456,11 @@ class AmazonFulfillmentOrderUpdater extends AmazonOutboundCore
     } else {
       $response = $this->sendRequest($url, array('Post' => $query));
     }
-    if (!$this->checkResponse($response)) {
-      return false;
-    } else {
+    if ($this->checkResponse($response)) {
       $this->log("Successfully updated Fulfillment Order " . $this->options['SellerFulfillmentOrderId'] . " / " . $this->options['DisplayableOrderId']);
-      return true;
     }
+
+    return new AmazonResponse($response);
   }
 
 }
