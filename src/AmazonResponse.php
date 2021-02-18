@@ -10,8 +10,8 @@ class AmazonResponse
     /** @var string|array */
     protected $error;
 
-    /** @var string */
-    protected $message;
+    /** @var array */
+    protected $result;
 
     /**
      * AmazonResponse constructor.
@@ -23,12 +23,14 @@ class AmazonResponse
             if (!is_array($response) || !array_key_exists('code', $response)) {
                 $this->error = 'No Response found';
                 $this->success = false;
+                $this->result = [];
             } else if ($response['code'] == 200) {
                 $xml = simplexml_load_string($response['body']);
-                $this->message = json_decode(json_encode((array)$xml), TRUE);
+                $this->result = json_decode(json_encode((array)$xml), TRUE);
                 $this->success = true;
             } else {
                 $xml = simplexml_load_string($response['body'])->Error;
+                $this->result = [];
                 $this->error = json_decode(json_encode((array)$xml->Message), TRUE);
                 $this->success = false;
             }
@@ -56,6 +58,7 @@ class AmazonResponse
      */
     public function setError($error)
     {
+        $this->result = [];
         $this->success = false;
         $this->error = $error;
     }
@@ -72,19 +75,20 @@ class AmazonResponse
     }
 
     /**
-     * @param string $message
+     * @param array $result
      */
-    public function setMessage(string $message)
+    public function setResult($result)
     {
-        $this->message = $message;
+        $this->setSuccess(true);
+        $this->result = $result;
     }
 
     /**
-     * @return string | null
+     * @return array
      */
-    public function getMessage()
+    public function getResult()
     {
-        return $this->message;
+        return $this->result;
     }
 
     /**
@@ -94,7 +98,7 @@ class AmazonResponse
     {
         return [
             'success' => $this->success,
-            'message' => $this->message,
+            'message' => $this->result,
             'error' => $this->error,
         ];
     }

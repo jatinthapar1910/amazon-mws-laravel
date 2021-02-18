@@ -296,14 +296,16 @@ class AmazonFulfillmentOrder extends AmazonOutboundCore
      * <li><b>Items</b> - multi-dimensional array of item data</li>
      * <li><b>Shipments</b> - multi-dimensional array of shipment data</li>
      * </ul>
-     * @return array|boolean data array, or <b>FALSE</b> if data not filled yet
+     * @return AmazonResponse
      */
     public function getOrder()
     {
         if (isset($this->order)) {
-            return $this->order;
+            $amz = new AmazonResponse();
+            $amz->setResult($this->order);
+            return $amz;
         } else {
-            return false;
+            return new AmazonResponse($this->getLastResponse());
         }
     }
 }
