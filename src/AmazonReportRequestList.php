@@ -292,7 +292,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
 
         $path = $this->options['Action'] . 'Result';
         if ($this->mockMode) {
-            $xml = $this->fetchMockFile()->$path;
+            $xml = $this->fetchMockFile();
         } else {
             $response = $this->sendRequest($url, array('Post' => $query));
 
@@ -300,7 +300,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
                 return false;
             }
 
-            $xml = simplexml_load_string($response['body'])->$path;
+            $xml = simplexml_load_string($response['body']);
         }
 
         $this->parseXML($xml);
@@ -393,7 +393,9 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
         if (!$xml) {
             return false;
         }
-
+        $path = $this->options['Action'] . 'Result';
+        $RequestId = $xml->ResponseMetadata->RequestId;
+        $xml = $xml->$path;
         foreach ($xml->children() as $key => $x) {
             $i = $this->index;
             if ($key == 'Count') {
@@ -404,6 +406,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
                 continue;
             }
 
+            $this->reportList[$i]['RequestId'] = (string)$RequestId;
             $this->reportList[$i]['ReportRequestId'] = (string)$x->ReportRequestId;
             $this->reportList[$i]['ReportType'] = (string)$x->ReportType;
             $this->reportList[$i]['StartDate'] = (string)$x->StartDate;
@@ -439,7 +442,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
         $path = $this->options['Action'] . 'Result';
 
         if ($this->mockMode) {
-            $xml = $this->fetchMockFile()->$path;
+            $xml = $this->fetchMockFile();
         } else {
             $response = $this->sendRequest($url, array('Post' => $query));
 
@@ -447,7 +450,7 @@ class AmazonReportRequestList extends AmazonReportsCore implements \Iterator
                 return false;
             }
 
-            $xml = simplexml_load_string($response['body'])->$path;
+            $xml = simplexml_load_string($response['body']);
         }
 
         $this->parseXML($xml);
