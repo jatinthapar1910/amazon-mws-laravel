@@ -569,7 +569,7 @@ abstract class AmazonCore
         } else {
             throw new Exception('Invalid time input given');
         }
-        return date('c', $time-120);
+        return date('c', $time);
 
     }
 
