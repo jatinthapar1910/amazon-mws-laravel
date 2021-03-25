@@ -1,6 +1,7 @@
 <?php namespace Sonnenglas\AmazonMws;
 
 use Sonnenglas\AmazonMws\AmazonReportsCore;
+use Exception;
 
 /**
  * Copyright 2013 CPI Group, LLC
@@ -237,6 +238,33 @@ class AmazonReportRequest extends AmazonReportsCore
         }
     }
 
+    /**
+     * Generates timestamp in ISO8601 format.
+     *
+     * This method creates a timestamp from the provided string in ISO8601 format.
+     * The string given is passed through <i>strtotime</i> before being used. The
+     * value returned is actually 30 seconds early, to prevent it from tripping up
+     * Amazon. If no time is given, the current time is used.
+     * @param string $time [optional] <p>The time to use. Since this value is
+     * passed through <i>strtotime</i> first, values such as "-1 hour" are fine.
+     * Defaults to the current time.</p>
+     * @return string Unix timestamp of the time, minus 30 seconds.
+     */
+    protected function genTime($time = false)
+    {
+      if (!$time) {
+        $time = time();
+      } else if (is_numeric($time)) {
+        $time = (int)$time;
+      } else if (is_string($time)) {
+        return $time;
+      } else {
+        throw new Exception('Invalid time input given');
+      }
+      return date('c', $time);
+
+    }
+    
     /**
      * Sends a report request to Amazon.
      *
