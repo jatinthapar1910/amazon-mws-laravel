@@ -88,6 +88,9 @@ class AmazonResponse
      */
     public function getResult()
     {
+        if (is_array($this->result)) {
+          return implode("\n", $this->result);
+        }
         return $this->result;
     }
 
