@@ -69,7 +69,7 @@ class AmazonResponse
     public function getError()
     {
         if (is_array($this->error)) {
-            return implode("\n", $this->error);
+            return json_encode($this->error);
         }
         return $this->error;
     }
@@ -89,7 +89,7 @@ class AmazonResponse
     public function getResult()
     {
         if (is_array($this->result)) {
-          return implode("\n", $this->result);
+          return json_encode($this->result);
         }
         return $this->result;
     }
